@@ -1,21 +1,20 @@
+
+import com.sun.xml.internal.ws.util.StringUtils;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainClass {
-    static boolean isMatched(HashMap<Integer, Integer> matched_list, Integer index){
-        for (Integer i : matched_list.keySet()) {
-            if(index >= i && index <= matched_list.get(i)){
-                return true;
-            }
-        }
-        return false;
+    public static String repeat(char character, Integer length){
+        char[] chars = new char[length];
+        Arrays.fill(chars, character);
+        String substr = new String(chars);
+        return substr;
     }
 
-    static void sort(ArrayList<Token> tokens){
-        // sort tokens with respect to start_index
-    }
     public static void main (String[] Args){
         String data = null; // load data here
         try {
@@ -30,7 +29,6 @@ public class MainClass {
             e.printStackTrace();
         }
         ArrayList<Token> tokens=new ArrayList();
-        HashMap<Integer, Integer> matchedTokensIndexes = new HashMap<Integer, Integer>();
         Pattern pattern;
         Matcher matcher;
         for (String i : tokenTypes.keySet()) {
@@ -39,13 +37,11 @@ public class MainClass {
             while (matcher.find())
             {
                 Token token = new Token(i, matcher.group(), matcher.start());
-                if(!isMatched(matchedTokensIndexes, matcher.start())){
-                    tokens.add(token);
-                    matchedTokensIndexes.put(matcher.start(), matcher.end());
-                }
+                String substr = repeat(' ',(matcher.end() - matcher.start()));
+                String newData = data.substring(0, matcher.start())+substr+data.substring(matcher.end());
+                data = newData;
             }
         }
-        sort(tokens); // sort tokens w.r.t start_index
         for (int i=0;i<tokens.size();i++){
             System.out.println(tokens.get(i).type+": "+tokens.get(i).value+"\t"+tokens.get(i).startIndex);
         }
