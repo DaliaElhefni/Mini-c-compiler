@@ -18,7 +18,6 @@ public class MainClass {
 
     static void sort(ArrayList<Token> tokens)
     {
-        // sort tokens with respect to start_index
         Collections.sort(tokens);
     }
 
@@ -58,7 +57,5 @@ public class MainClass {
         for (int i=0;i<tokens.size();i++){
             System.out.println(tokens.get(i).type+": "+tokens.get(i).value+"\t"+tokens.get(i).startIndex);
         }
-        String regex = "\\b[^0-9]*[a-zA-Z\\_\\$]+[0-9\\_\\$]*[a-zA-Z\\_\\$]*\\b";
-
     }
 }
