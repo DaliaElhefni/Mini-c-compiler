@@ -51,7 +51,21 @@ public class MainClass {
                 tokens.add(token);
             }
         }
-
+        String[] splited = data.split("\\s+");
+        for (int i=1 ; i<splited.length ; i++)
+        {
+            String target="\\b"+splited[i]+"\\b";
+            pattern = Pattern.compile(target);
+            matcher = pattern.matcher(data);
+            if(matcher.find())
+            {
+                Token token = new Token("<ERROR>", matcher.group(), matcher.start());
+                String substr = repeat(' ',(matcher.end() - matcher.start()));
+                String newData = data.substring(0, matcher.start())+substr+data.substring(matcher.end());
+                data = newData;
+                tokens.add(token);
+            }
+        }
         sort(tokens); // sort tokens w.r.t start_index
 
         for (int i=0;i<tokens.size();i++){
