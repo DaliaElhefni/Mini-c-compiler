@@ -31,11 +31,7 @@
 <BITWISE_NOT> ~
 <BACKWARD_SLASH> \\\\
 <COMMA> ,
-<PREPROCESSOR> ^#[a-zA-Z]+\\s*<[a-zA-Z]+>$|^#[a-zA-Z]+\\s*\"[a-zA-Z]+\"$        
-<STRING_LITERAL> \"[\\w\\W]*\"
-<FLOAT_LITERAL> [-+]?[0-9]*\\.?[0-9]+
-<INTEGRAL_LITERAL> [0-9]+
-<CHAR_LITERAL> '[a-z]'
+<EOF> \b0$
 <NEW> \bnew\b
 <TRUE> \btrue\b
 <FALSE> \bfalse\b
@@ -72,4 +68,9 @@
 <UNION> \bunion\b
 <VOID> \bvoid\b
 <VOLATILE> \bvolatile\b
+<PREPROCESSOR> ^#[a-zA-Z]+\\s*<[a-zA-Z]+>$|^#[a-zA-Z]+\\s*\"[a-zA-Z]+\"$        
+<STRING_LITERAL> \"[\\w\\W]*\"
+<FLOAT_LITERAL> \b[-+]?[0-9]*\\.?[0-9]+\b
+<INTEGRAL_LITERAL> \b[0-9]+\b
+<CHAR_LITERAL> '[a-z]'
 <ID> \b[a-zA-Z_$]+[0-9_$]*[a-zA-Z_$]*\b
