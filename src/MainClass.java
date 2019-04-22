@@ -21,6 +21,31 @@ public class MainClass {
         Collections.sort(tokens);
     }
 
+    public static ArrayList<Token> checkOverLappedTokens(ArrayList<Token> tokens){
+        ArrayList<Token> newTokens = new ArrayList();
+       for(int i=0;i<tokens.size();i++){
+           boolean noOverlap = true;
+           for(int j=0; j<tokens.size();j++){
+               if(tokens.get(i).startIndex >= tokens.get(j).startIndex && tokens.get(i).startIndex <= tokens.get(j).endIndex
+                       && !tokens.get(i).type.equals(tokens.get(j).type)){
+                   noOverlap = false;
+               }
+           }
+           if(!newTokens.contains(tokens.get(i)) && noOverlap==true){
+               newTokens.add(tokens.get(i));
+           }
+       }
+       return newTokens;
+    }
+    public static String removeMatchedTokens(ArrayList<Token> tokens, String data){
+        for(int i=0;i<tokens.size();i++){
+            String substr = repeat(' ',(tokens.get(i).endIndex - tokens.get(i).startIndex));
+            String newData = data.substring(0, tokens.get(i).startIndex)+substr+data.substring(tokens.get(i).endIndex);
+            data = newData;
+        }
+        return data;
+    }
+
     public static void main (String[] Args){
         String data = null; // load data here
         try {
@@ -38,13 +63,28 @@ public class MainClass {
         ArrayList<Token> tokens=new ArrayList();
         Pattern pattern;
         Matcher matcher;
-        for (int i=0 ; i<tokenTypes.size();i++)
+        for (int i=0 ; i<3;i++)
         {
             pattern = Pattern.compile(tokenTypes.get(i).tokenExpression);
             matcher = pattern.matcher(data);
             while (matcher.find())
             {
-                Token token = new Token(tokenTypes.get(i).tokenName, matcher.group(), matcher.start());
+                Token token = new Token(tokenTypes.get(i).tokenName, matcher.group(), matcher.start(), matcher.end());
+                tokens.add(token);
+            }
+        }
+
+        tokens = checkOverLappedTokens(tokens);
+
+        data = removeMatchedTokens(tokens, data);
+
+        for (int i=3 ; i<tokenTypes.size();i++)
+        {
+            pattern = Pattern.compile(tokenTypes.get(i).tokenExpression);
+            matcher = pattern.matcher(data);
+            while (matcher.find())
+            {
+                Token token = new Token(tokenTypes.get(i).tokenName, matcher.group(), matcher.start(), matcher.end());
                 String substr = repeat(' ',(matcher.end() - matcher.start()));
                 String newData = data.substring(0, matcher.start())+substr+data.substring(matcher.end());
                 data = newData;
@@ -59,7 +99,7 @@ public class MainClass {
             matcher = pattern.matcher(data);
             if(matcher.find())
             {
-                Token token = new Token("<ERROR>", matcher.group(), matcher.start());
+                Token token = new Token("<ERROR>", matcher.group(), matcher.start(), matcher.end());
                 String substr = repeat(' ',(matcher.end() - matcher.start()));
                 String newData = data.substring(0, matcher.start())+substr+data.substring(matcher.end());
                 data = newData;

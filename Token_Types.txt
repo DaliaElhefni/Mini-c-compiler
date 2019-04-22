@@ -1,5 +1,6 @@
-<MULTI_COMMENT> /\*[\w\W]*\*/
+<MULTI_COMMENT> /\*+[^*]*\*+(?:[^/*][^*]*\*+)*/
 <SINGLE_COMMENT> //.*
+<STRING_LITERAL> \".*\"
 <SEMICOLON> ;
 <LEFT_SQUARE_B> \]
 <RIGHT_SQUARE_B> \[
@@ -15,7 +16,6 @@
 <NOT_EQUAL> !=
 <AND> &&
 <OR> \|\|
-<dot> \.
 <not> !
 <ASSIGN_OPERATOR> =
 <MINUS> -
@@ -59,7 +59,8 @@
 <BOOL> \bbool\b
 <FLOAT> \bfloat\b
 <INT> \bint\b
-<GOTO> \bgoto\b 
+<GOTO> \bgoto\b
+<STRING> \bstring\b
 <RETURN> \breturn\b
 <SIZEOF> \bsizeof\b
 <STRUCT> \bstruct\b
@@ -68,9 +69,9 @@
 <UNION> \bunion\b
 <VOID> \bvoid\b
 <VOLATILE> \bvolatile\b
-<PREPROCESSOR> ^#[a-zA-Z]+\\s*<[a-zA-Z]+>$|^#[a-zA-Z]+\\s*\"[a-zA-Z]+\"$        
-<STRING_LITERAL> \"[\\w\\W]*\"
-<FLOAT_LITERAL> \b[-+]?[0-9]*\\.?[0-9]+\b
+<PREPROCESSOR> ^#[a-zA-Z]+\\s*<[a-zA-Z]+>$|^#[a-zA-Z]+\\s*\"[a-zA-Z]+\"$
+<FLOAT_LITERAL> \b[-+]?[0-9]*\.[0-9]+\b
+<dot> \.
 <INTEGRAL_LITERAL> \b[0-9]+\b
 <CHAR_LITERAL> '[a-z]'
 <ID> \b[a-zA-Z_$]+[0-9_$]*[a-zA-Z_$]*\b
