@@ -104,11 +104,6 @@ public class LexicalAnalyzer {
             }
         }
         sort(tokens); // sort tokens w.r.t start_index
-        for (int i =0;i<tokens.size();i++){
-            System.out.println(tokens.get(i).type+": "+tokens.get(i).value+"\t"+tokens.get(i).startIndex);
-        }
-        System.out.println();
-        System.out.println();
         Queue<Token> tokensQueue = new LinkedList<>();
         tokensQueue.addAll(tokens);
         return tokensQueue;
